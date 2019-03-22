@@ -2,7 +2,7 @@
     "version": 1,
     "language": "nl",
     "questions": [
-        { "id":1, "question":"Op welke manier kunnen de Daily Scrums nog effectier?"},
+        { "id":1, "question":"Op welke manier kunnen de Daily Scrums nog efficiënter?"},
         { "id":2, "question":"Wat kan er beter aan de Daily Scrums?"},
         { "id":3, "question":"Welk punt moet als verbeterpunt worden opgepakt in de volgende Sprint?"},
         { "id":4, "question":"Welk verbeterpunt uit de vorige Retrospective is goed opgepakt?"},
@@ -17,7 +17,7 @@
         { "id":13, "question":"Wat kunnen wij de volgende Sprint doen om impedements eerder te identiciferen?"},
         { "id":14, "question":"Wat veroorzaakte de belangrijkste impediment?"},
         { "id":15, "question":"Welke impediment heeft de meeste vertraging veroorzaakt?"},
-        { "id":16, "question":"Wat kunnen we in de volgende sprint doen om impediments eerder op te lossen?"},
+        { "id":16, "question":"Wat kunnen we in de volgende Sprint doen om impediments eerder op te lossen?"},
         { "id":17, "question":"Welke impediments hadden voorkomen kunnen worden?"},
         { "id":18, "question":"Ben je trots op het resultaat van deze Sprint?"},
         { "id":19, "question":"Hebben wij in deze Sprint gewerkt aan wat voor de klant het meeste waarde toevoegt?"},
@@ -28,10 +28,10 @@
         { "id":24, "question":"Wat is er nodig om de volgende Sprint nog succesvoller te maken?"},
         { "id":25, "question":"Wat was het dieptepunt van deze Sprint?"},
         { "id":26, "question":"Waar kreeg je energie van deze Sprint?"},
-        { "id":27, "question":"Waren de Sprint Backlog items bij de start voldoende duidelijk?"},
+        { "id":27, "question":"Waren de Sprint Backlog items bij de Sprint Planning voldoende duidelijk?"},
         { "id":28, "question":"Met welke beslissing was jij het deze Sprint niet eens?"},
         { "id":29, "question":"Hoe kan de betrokkenheid van de organisatie bij het team nog beter?"},
-        { "id":30, "question":"Hoe kan de betrokkenheid van de stakeholders nog beter?"},
+        { "id":30, "question":"Hoe kan de betrokkenheid van de stakeholders worden vergroot?"},
         { "id":31, "question":"Hoe kunnen wij de feedback van eindgebruikers op Sprint opleveringen verbeteren?"},
         { "id":32, "question":"Welk rapportcijfer krijgt de samenwerking tussen het team en de Product Owner?"},
         { "id":33, "question":"Worden alle onderlinge afspraken nagekomen?"},
@@ -39,6 +39,11 @@
         { "id":35, "question":"Wat heb jij nodig om nog meer meerwaarde toe te voegen aan het team?"},
         { "id":36, "question":"Welk teamlid krijgt deze Sprint een pluim van jou?"},
         { "id":37, "question":"Welk rapportcijfer krijgt de samenwerking binnen het team?"},
-        { "id":38, "question":"Op welke manier heb jij waarde toegevoegd aan het team in deze Sprint?"}
+        { "id":38, "question":"Op welke manier heb jij waarde toegevoegd aan het team in deze Sprint?"},
+        { "id":39, "question":"Wat kan er worden verbetered aan de Definition of Done?"},
+        { "id":40, "question":"Hoe kunnen wij de velocity van het team verbeteren?"},
+        { "id":41, "question":"Hebben wij als team het maximale gedaan om ons Sprint doel te halen?"},
+        { "id":42, "question":"Wat kunnen wij als team verbeteren om onze transparantie te vergroten?"},
+        { "id":43, "question":"Hebben wij als team voldoende mandaat binnen de organisatie?"}
     ]
 }
