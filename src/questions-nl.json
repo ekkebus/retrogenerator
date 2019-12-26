@@ -40,7 +40,7 @@
         { "id":36, "question":"Welk teamlid krijgt deze Sprint een pluim van jou?"},
         { "id":37, "question":"Welk rapportcijfer krijgt de samenwerking binnen het team?"},
         { "id":38, "question":"Op welke manier heb jij waarde toegevoegd aan het team in deze Sprint?"},
-        { "id":39, "question":"Wat kan er worden verbetered aan de Definition of Done?"},
+        { "id":39, "question":"Wat kan er worden verbeterd aan de Definition of Done?"},
         { "id":40, "question":"Hoe kunnen wij de velocity van het team verbeteren?"},
         { "id":41, "question":"Hebben wij als team het maximale gedaan om ons Sprint doel te halen?"},
         { "id":42, "question":"Wat kunnen wij als team verbeteren om onze transparantie te vergroten?"},
