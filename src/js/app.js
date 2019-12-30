@@ -96,15 +96,17 @@ spa.model = ( () => {
     _logEvent = (eventCategory,eventName, eventValue) => {
         console.log(`Send ${eventCategory} Event to GA: ${eventName}  with value ${eventValue}`);
         //add event to analytics
-        if(typeof ga === "function"){
-            ga('send', {
-                hitType: 'event',
-                eventCategory: eventCategory,
-                eventAction: eventName,
-                eventValue: eventValue
+        if(typeof gtag === "function"){
+            
+            gtag('event', 'action', {
+                'event_category': eventCategory,
+                'event_label': eventName,
+                'value': eventValue,
+                'non_interaction': false,
+                'anonymize_ip': true 
             });
         }
-        else console.log("ga('send', 'event',...) not defined.");
+        else console.log("gtag('event',...) not defined.");
     }
 
     _shuffleArray = (array) => {
