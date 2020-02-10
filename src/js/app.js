@@ -31,7 +31,7 @@ spa = ( () => {
             };
             
         }).catch(error => {
-           console.error(`spa.initModule ${error}`);
+           console.error('spa.initModule '+ error);
         });
     }
 
@@ -84,6 +84,7 @@ spa.model = ( () => {
         }
 
         stateMap.$currentQuestion = stateMap.$questions.pop();
+        
         
         return stateMap.$currentQuestion.question;
     }
@@ -146,12 +147,11 @@ spa.data = ( () => {
 
     // load data returns a promise which contains json data
     _loadData = () => {
-        console.log('spa.data.loadData');
+        console.log('spa.data.loadData from ' + configMap.endpoint);
 
-        return fetch(configMap.endpoint).then(response => response.json())
-        .then(json =>{
-            //console.log(json);
-            return json;
+        return fetch(configMap.endpoint).then(response => {
+            //console.log(response.toString());
+            return response.json()
         });
 
     }
