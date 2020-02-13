@@ -62,7 +62,6 @@ spa.model = ( () => {
 
     //returns a promise when it is ready
     _initModule = () => {
-        console.log('spa.model.initModule');
         localStorage.clear();
         stateMap.$currentQuestionStartTime = new Date().getTime();
 
@@ -73,7 +72,6 @@ spa.model = ( () => {
     }
 
     _getQuestion = () => {
-        console.log('spa.model.getQuestion');
         if(stateMap.$questions == undefined || stateMap.$questions.length == 0){
             return "Well done! You are done! :)";
         }
@@ -85,7 +83,6 @@ spa.model = ( () => {
 
         stateMap.$currentQuestion = stateMap.$questions.pop();
         
-        
         return stateMap.$currentQuestion.question;
     }
 
@@ -95,10 +92,9 @@ spa.model = ( () => {
     }
 
     _logEvent = (eventCategory,eventName, eventValue) => {
-        console.log(`Send ${eventCategory} Event to GA: ${eventName}  with value ${eventValue}`);
         //add event to analytics
         if(typeof gtag === "function"){
-            
+            console.log(`Send ${eventCategory} Event to GA: ${eventName}  with value ${eventValue}`);    
             gtag('event', 'action', {
                 'event_category': eventCategory,
                 'event_label': eventName,
@@ -107,7 +103,6 @@ spa.model = ( () => {
                 'anonymize_ip': true 
             });
         }
-        else console.log("gtag('event',...) not defined.");
     }
 
     _shuffleArray = (array) => {
@@ -140,17 +135,13 @@ spa.data = ( () => {
     //returns a promise when it is ready
     _initModule =  () => {
         return new Promise((resolve, reject) => {
-            console.log('spa.data.initModule');
-            setTimeout(resolve, 100);
+            setTimeout(resolve, 10);
           });
     }
 
     // load data returns a promise which contains json data
     _loadData = () => {
-        console.log('spa.data.loadData from ' + configMap.endpoint);
-
         return fetch(configMap.endpoint).then(response => {
-            //console.log(response.toString());
             return response.json()
         });
 
