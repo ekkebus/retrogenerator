@@ -17,6 +17,29 @@ describe("Check testing page itself", function () {
 
 /** 
  * -------------
+ * check if the public API's are defined for app, app.model and app.data
+ * -------------
+*/
+describe("Check if the expected public interfaces are defined", function () {
+
+    it("spa", function () {
+        expect(typeof spa.initModule).toBe('function');
+    });
+
+    it("spa.model", function () {
+        expect(typeof spa.model.initModule).toBe('function');
+        expect(typeof spa.model.getQuestion).toBe('function');
+        expect(typeof spa.model.logEvent).toBe('function');
+    });
+
+    it("spa.data", function () {
+        expect(typeof spa.data.initModule).toBe('function');
+        expect(typeof spa.data.loadData).toBe('function');
+    });
+})
+
+/** 
+ * -------------
  * Check spa.data
  * -------------
 */
