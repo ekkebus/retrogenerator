@@ -23,16 +23,22 @@ describe("Check testing page itself", function () {
 describe("Check if the expected public interfaces are defined", function () {
 
     it("spa", function () {
+        expect(spa).toBeDefined();
+        //check the public API
         expect(typeof spa.initModule).toBe('function');
     });
 
     it("spa.model", function () {
+        expect(spa.model).toBeDefined();
+        //check the public API
         expect(typeof spa.model.initModule).toBe('function');
         expect(typeof spa.model.getQuestion).toBe('function');
         expect(typeof spa.model.logEvent).toBe('function');
     });
 
     it("spa.data", function () {
+        expect(spa.model).toBeDefined();
+        //check the public API
         expect(typeof spa.data.initModule).toBe('function');
         expect(typeof spa.data.loadData).toBe('function');
     });
