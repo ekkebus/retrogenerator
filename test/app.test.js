@@ -8,11 +8,17 @@ describe("Check testing page itself", function () {
         expect(document.getElementById("spa")).not.toBe(null);
     });
     it("The app container should have three child nodes", function () {
-        expect(document.getElementById("spa").childElementCount).toBe(3);
+        expect(document.getElementById("spa").childElementCount).toBe(0);
     });
-    it("It should have the question section", function () {
-        expect(document.getElementById("question")).not.toBe(null);
+
+    //check if the external libaries are present
+
+    it("Check if Handlebars.js is present", function () {
+        expect(Handlebars).toBeDefined();
+        //check the public API
+        expect(typeof Handlebars.compile).toBe('function');
     });
+
 })
 
 /** 
@@ -278,11 +284,18 @@ describe("Testing the spa app", function () {
     });
 
     describe("Test the OnClick event on the SPA container", function () {
-        it("Check if the first question is displayed (after the initModule)", async function () {
-
+        it("Check if the template is added to the DOM (after the initModule)", async function () {
             await spa.initModule('spa');
             await setTimeout(null, 100);    //wait for the DOM to update
 
+            expect(document.getElementById("question")).not.toBe(null);
+        });
+
+        it("Check if the app container should have three child nodes", function () {
+            expect(document.getElementById("spa").childElementCount).toBe(3);
+        });
+
+        it("Check if the first question is displayed", function () {
             let displayedValue = document.getElementById("question").innerHTML;
             expect(displayedValue).toBe(testQuestion + testCounter);
         });

@@ -13,6 +13,9 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/boot.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine-ajax/4.0.0/mock-ajax.min.js"></script>
 
+        <!-- include external libaries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
+
         <!-- import the test target-->
         <script type="text/javascript" src="../src/js/app.js"></script>
 
@@ -26,11 +29,7 @@
         </style>
     </head>
     <body>
-       <div id="spa" class="container">
-            <header class="box"></header>
-            <section id="question" class="box"></section>
-            <footer class="box"></footer>
-        </div>
+       <div id="spa" class="container"></div>
         
         <script>
             (function() {

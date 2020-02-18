@@ -3,40 +3,53 @@
  * Retrogenerator SPA app
  * -------------
 */
-spa = ( () => {
+spa = (() => {
     var configMap = {
-        templateId: 'spa',
-        questionDomId: 'question'
+        htmlTemplate:
+            `<header class="box"></header>
+            <section id="question" class="box">{{question}}</section>
+            <footer class="box">Tap on the text for the next question.</footer>`,
+        startText: 'Loading...'
     },
-    stateMap = {
-        $container: undefined
-    },
-    _initModule, _showNextQuestion, _roundCounter = 0;
+        stateMap = {
+            $container: undefined,
+            $compiledTemplate: undefined
+        },
+        _initModule, _updateDom, _showNextQuestion, _roundCounter = 0;
 
     _initModule = ($container) => {
-        stateMap.$container = $container;
+        stateMap.$container = document.getElementById($container);
+        //compite the HTML template 
+        stateMap.$compiledTemplate = Handlebars.compile(configMap.htmlTemplate);
+
+        _updateDom(configMap.startText);
 
         let dataLoaded = spa.data.initModule();
         let modelLoaded = spa.model.initModule();
 
-        Promise.all([dataLoaded,modelLoaded]).then(data => {
+        Promise.all([dataLoaded, modelLoaded]).then(data => {
             _showNextQuestion();
             _roundCounter++;
-            spa.model.logEvent('OnClick',_roundCounter);
-            
-            document.getElementById(stateMap.$container).onclick = () => { 
-                _showNextQuestion(); 
+            spa.model.logEvent('OnClick', _roundCounter);
+
+            stateMap.$container.onclick = () => {
+                _showNextQuestion();
                 _roundCounter++;
-                spa.model.logEvent('OnClick',_roundCounter);
+                spa.model.logEvent('OnClick', _roundCounter);
             };
-            
+
         }).catch(error => {
-           console.error('spa.initModule '+ error);
+            console.error('spa.initModule ' + error);
         });
     }
 
     _showNextQuestion = () => {
-        document.getElementById(configMap.questionDomId).innerHTML = spa.model.getQuestion();
+        _updateDom(spa.model.getQuestion());
+    }
+
+    _updateDom = (content) => {
+        // execute the compiled template and update the DOM
+        stateMap.$container.innerHTML = stateMap.$compiledTemplate({ question: content });
     }
 
     //public API
@@ -50,15 +63,15 @@ spa = ( () => {
  * MODEL 
  * -------------
 */
-spa.model = ( () => {
+spa.model = (() => {
     var configMap = {
     },
-    stateMap = {
-        $questions: undefined,
-        $currentQuestion: undefined,
-        $currentQuestionStartTime: undefined
-    },
-    _initModule, _getQuestion, _shuffleArray;
+        stateMap = {
+            $questions: undefined,
+            $currentQuestion: undefined,
+            $currentQuestionStartTime: undefined
+        },
+        _initModule, _getQuestion, _shuffleArray;
 
     //returns a promise when it is ready
     _initModule = () => {
@@ -72,35 +85,35 @@ spa.model = ( () => {
     }
 
     _getQuestion = () => {
-        if(stateMap.$questions == undefined || stateMap.$questions.length == 0){
+        if (stateMap.$questions == undefined || stateMap.$questions.length == 0) {
             return "Well done! You are done! :)";
         }
         //if there is a previous currentQuestion defined
-        if(typeof stateMap.$currentQuestion !== 'undefined'){
-            _logEvent('Time',`Viewed question ${stateMap.$currentQuestion.id}`,Math.round((new Date().getTime() - stateMap.$currentQuestionStartTime) / 1000));
+        if (typeof stateMap.$currentQuestion !== 'undefined') {
+            _logEvent('Time', `Viewed question ${stateMap.$currentQuestion.id}`, Math.round((new Date().getTime() - stateMap.$currentQuestionStartTime) / 1000));
             stateMap.$currentQuestionStartTime = new Date().getTime();
         }
 
         stateMap.$currentQuestion = stateMap.$questions.pop();
-        
+
         return stateMap.$currentQuestion.question;
     }
 
     //logs action events (from UI)
     _logEventAction = (eventName, eventValue) => {
-        _logEvent('Actions',eventName,eventValue);
+        _logEvent('Actions', eventName, eventValue);
     }
 
-    _logEvent = (eventCategory,eventName, eventValue) => {
+    _logEvent = (eventCategory, eventName, eventValue) => {
         //add event to analytics
-        if(typeof gtag === "function"){
-            console.log(`Send ${eventCategory} Event to GA: ${eventName}  with value ${eventValue}`);    
+        if (typeof gtag === "function") {
+            console.log(`Send ${eventCategory} Event to GA: ${eventName}  with value ${eventValue}`);
             gtag('event', 'action', {
                 'event_category': eventCategory,
                 'event_label': eventName,
                 'value': eventValue,
                 'non_interaction': false,
-                'anonymize_ip': true 
+                'anonymize_ip': true
             });
         }
     }
@@ -123,20 +136,20 @@ spa.model = ( () => {
  * -------------
 */
 
-spa.data = ( () => {
+spa.data = (() => {
     var configMap = {
         endpoint: './src/questions-nl.json'
     },
-    stateMap = {
-        $container: undefined
-    },
-    initModule;
+        stateMap = {
+            $container: undefined
+        },
+        initModule;
 
     //returns a promise when it is ready
-    _initModule =  () => {
+    _initModule = () => {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, 10);
-          });
+        });
     }
 
     // load data returns a promise which contains json data

@@ -2,19 +2,18 @@
 for some Windows environments, change script execution policies first
 Run> Set-ExecutionPolicy Unrestricted (as local adminstrator)
 */
-
-//gulpfile.js
 const gulp = require('gulp');
 const order = require('gulp-order');
-//requires for HTML
+//required for HTML
 var htmlreplace = require('gulp-html-replace');
-//requires for CSS
+//required for CSS
 const clean_css = require('gulp-clean-css');
 const auto_prefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
-//requires for JS
+//required for JS
 //const babel = require('gulp-babel');
 const terser = require('gulp-terser');  //replacement for uglify
+const jsonminify = require('gulp-jsonminify');
 
 //for browser sync
 const browserSync = require('browser-sync').create();
@@ -27,7 +26,7 @@ const html = () => {
             'css': 'style.min.css',
             'js': 'app.min.js'
         }))
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('./dist/'))
 }
 
 const css = () => {
@@ -37,35 +36,37 @@ const css = () => {
         //auto prefixer for some typen browsers
         .pipe(auto_prefixer('last 2 version', 'safari 5', 'ie 9'))
         .pipe(concat('style.min.css'))
-        .pipe(gulp.dest('./dist'))
-        .pipe(browserSync.stream());
-        
-}
-
-const js = () =>  {
-    return gulp.src('./src/js/**/*.js')
-        .pipe(order(['app.js'], {
-            base: "./"
-        }))
-        .pipe(terser())
-        .pipe(concat('app.min.js'))
-        /*
-        .pipe(babel({
-            presets: ['@babel/preset-env']
-        }))
-        */
         .pipe(gulp.dest('./dist/'))
         .pipe(browserSync.stream());
 }
 
-exports.build = series(css, js, html);
+const js = () => {
+    return gulp.src('./src/js/**/*.js')
+        .pipe(order(['app.js'], {
+            base: "./"
+        }))
+        //terser minifies the JS
+        .pipe(terser()) 
+        .pipe(concat('app.min.js'))
+        .pipe(gulp.dest('./dist/'))
+        .pipe(browserSync.stream());
+}
 
+const json = () => {
+    return gulp.src('./src/*.json')
+        .pipe(jsonminify())
+        .pipe(gulp.dest('./dist/'))
+        .pipe(browserSync.stream());
+}
 
-gulp.task('serve', function() {
+//export the build task
+exports.build = series(css, js, json, html);
+
+gulp.task('serve', function () {
     browserSync.init({
-        server: "./"
+        server: './dist/'
     });
-    gulp.watch("./src/css/**/*.css", series(css))
-    gulp.watch("./**/*.html", series(html))
-    gulp.watch("dist/**/*.html").on('change', browserSync.reload);
+    gulp.watch('./src/css/**/*.css', series(css))
+    gulp.watch('./**/*.html', series(html))
+    gulp.watch('dist/**/*.html').on('change', browserSync.reload);
 });
