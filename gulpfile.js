@@ -7,6 +7,7 @@ const gulp = require('gulp');
 const order = require('gulp-order');
 //required for HTML
 var htmlreplace = require('gulp-html-replace');
+var htmlValidator = require('gulp-w3c-html-validator');
 //required for CSS
 const clean_css = require('gulp-clean-css');
 const auto_prefixer = require('gulp-autoprefixer');
@@ -31,6 +32,12 @@ const html = () => {
             'js': 'app.min.js'
         }))
         .pipe(gulp.dest('./dist/'))
+}
+
+const validateHtml = () => {
+    return gulp.src('./index.html')
+    .pipe(htmlValidator())
+    .pipe(htmlValidator.reporter());
 }
 
 const css = () => {
@@ -81,7 +88,7 @@ const jasmineTest = () => {
 }
 
 //export the build task
-exports.build = series(css, js, json, html, jasmineTest);
+exports.build = series(css, js, json, validateHtml, html, jasmineTest);
 
 gulp.task('serve', function () {
     browserSync.init({
