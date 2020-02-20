@@ -78,11 +78,9 @@ describe("Check if the expected public interfaces are defined", function () {
  * Check spa app 
  * -------------
 */
-describe("Testing the spa app", function () {
+describe("Testing the spa app (mocking spa.model and spa.data)", function () {
     const testQuestion = "Wow this is an awesome test question?";
     let testCounter = 0;
-
-    
 
     beforeEach(function () {
         //add a spies and mock their behaviour
@@ -126,4 +124,70 @@ describe("Testing the spa app", function () {
             }
         });
     })
+});
+
+/** 
+ * -------------
+ * Check spa model by mocking the spa.data layer
+ * -------------
+*/
+describe("Check spa.model (mocking spa.data)", function () {
+
+  let testJson = {
+      "version": 3,
+      "language": "eng",
+      "questions": [
+          { "id": 10, "question": "Awesome testdata 10!?" },
+          { "id": 11, "question": "Awesome testdata 11!?" },
+          { "id": 12, "question": "Awesome testdata 12!?" }
+      ]
+  };
+
+  beforeEach(function () {
+      //add a spies and mock its behaviour
+      spyOn(spa.data, 'initModule').and.returnValue(Promise.resolve());
+
+      //spa.data.loadData spy defined within the tests
+  });
+
+  afterEach(function () {
+  });
+
+  describe("Test spa.model.getQuestion()", function () {
+
+      beforeEach(function () {
+          //spa.data.loadData is called in the spa.model.initModule and returns the JSON
+          spyOn(spa.data, 'loadData').and.callFake(function (req) {
+              //make a copy of the testJson, otherwise we get some weird behaviour
+              let copyOfTestData = JSON.parse(JSON.stringify(testJson));
+              return Promise.resolve(copyOfTestData);
+          });
+      });
+
+      it("Check if all of them are returned (in any order, but only once)", async function () {
+
+          await spa.model.initModule();   //wait for this to finish
+
+          //iterate trough all random questions
+          let initialSize = testJson.questions.length;
+          for (let i = 0; i < initialSize; i++) {
+              let returnedQuestion = spa.model.getQuestion();
+              testJson.questions.forEach((item, position) => {
+                  if (returnedQuestion == item.question) {
+                      expect(returnedQuestion).toBe(item.question);
+                      //remove the item from the test Json
+                      testJson.questions.splice(position, 1);
+                  }
+              });
+          }
+      });
+
+      it("After all items have been returned, the default String is expected", function () {
+          let returnedQuestion = spa.model.getQuestion();
+          expect(returnedQuestion).toBe("Well done! You are done! :)");
+          //double check
+          let returnedQuestion2 = spa.model.getQuestion();
+          expect(returnedQuestion2).toBe("Well done! You are done! :)");
+      });
+  })
 });
