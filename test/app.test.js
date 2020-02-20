@@ -10,15 +10,6 @@ describe("Check testing page itself", function () {
     it("The app container should have three child nodes", function () {
         expect(document.getElementById("spa").childElementCount).toBe(0);
     });
-
-    //check if the external libaries are present
-
-    it("Check if Handlebars.js is present", function () {
-        expect(Handlebars).toBeDefined();
-        //check the public API
-        expect(typeof Handlebars.compile).toBe('function');
-    });
-
 })
 
 /** 
@@ -204,19 +195,13 @@ describe("Check spa.model", function () {
     };
 
     beforeEach(function () {
-        //local storage is used by spa.model, so clear it
-        localStorage.clear();
-
         //add a spies and mock its behaviour
         spyOn(spa.data, 'initModule').and.returnValue(Promise.resolve());
 
         //spa.data.loadData spy defined within the tests
-
     });
 
     afterEach(function () {
-        //local storage is used by spa.model, so clear it after each test
-        localStorage.clear();
     });
 
     describe("Test spa.model.getQuestion()", function () {

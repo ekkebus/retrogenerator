@@ -15,6 +15,9 @@ const concat = require('gulp-concat');
 const terser = require('gulp-terser');  //replacement for uglify
 const jsonminify = require('gulp-jsonminify');
 
+//const jasmine = require('gulp-jasmine');  //works but is really unstable for me
+var exec = require('gulp-exec');
+
 //for browser sync
 const browserSync = require('browser-sync').create();
 
@@ -59,8 +62,23 @@ const json = () => {
         .pipe(browserSync.stream());
 }
 
+const jasmineTest = () => {
+    var options = {
+        continueOnError: false, // default = false, true means don't emit error event
+        pipeStdout: false, // default = false, true means stdout is written to file.contents
+        customTemplatingThing: "test" // content passed to lodash.template()
+      };
+      var reportOptions = {
+          err: true, // default = true, false means don't write err
+          stderr: true, // default = true, false means don't write stderr
+          stdout: true // default = true, false means don't write stdout
+      };
+    return gulp.src('./spec/*[Sp]ec.js').pipe(exec('jasmine', options))
+    .pipe(exec.reporter(reportOptions));
+}
+
 //export the build task
-exports.build = series(css, js, json, html);
+exports.build = series(css, js, json, html,jasmineTest);
 
 gulp.task('serve', function () {
     browserSync.init({

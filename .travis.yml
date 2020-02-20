@@ -1,0 +1,17 @@
+#for https://travis-ci.org/ekkebus 
+sudo: false
+
+cache:
+  npm: false
+
+language: node_js
+
+node_js:
+    - "13.9.0"
+    
+before_script:
+    - "npm i -g jasmine"
+    - "npm i -g gulp-cli"
+    - "npm install"
+script: 
+    - "gulp build"

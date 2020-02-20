@@ -5,22 +5,19 @@
 */
 spa = (() => {
     var configMap = {
-        htmlTemplate:
+        startText: 'Loading...',
+        htmlTemplate: (question) => 
             `<header class="box"></header>
-            <section id="question" class="box">{{question}}</section>
-            <footer class="box">Tap on the text for the next question.</footer>`,
-        startText: 'Loading...'
+            <section id="question" class="box">${question}</section>
+            <footer class="box">Tap on the text for the next question.</footer>`
     },
         stateMap = {
-            $container: undefined,
-            $compiledTemplate: undefined
+            $container: undefined
         },
         _initModule, _updateDom, _showNextQuestion, _roundCounter = 0;
 
     _initModule = ($container) => {
         stateMap.$container = document.getElementById($container);
-        //compite the HTML template 
-        stateMap.$compiledTemplate = Handlebars.compile(configMap.htmlTemplate);
 
         _updateDom(configMap.startText);
 
@@ -49,7 +46,7 @@ spa = (() => {
 
     _updateDom = (content) => {
         // execute the compiled template and update the DOM
-        stateMap.$container.innerHTML = stateMap.$compiledTemplate({ question: content });
+        stateMap.$container.innerHTML = configMap.htmlTemplate(content);
     }
 
     //public API
@@ -75,7 +72,7 @@ spa.model = (() => {
 
     //returns a promise when it is ready
     _initModule = () => {
-        localStorage.clear();
+        
         stateMap.$currentQuestionStartTime = new Date().getTime();
 
         return spa.data.loadData().then(json => {

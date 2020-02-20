@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -20,17 +20,23 @@
   },
   "homepage": "https://github.com/ekkebus/retrogenerator#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
+    "gulp-exec": "^4.0.0",
     "gulp-html-replace": "^1.6.2",
+    "gulp-jasmine": "^4.0.0",
     "gulp-jsonminify": "^1.1.0",
     "gulp-order": "^1.2.0",
-    "gulp-terser": "^1.2.0"
+    "gulp-terser": "^1.2.0",
+    "handlebars": "^4.7.3",
+    "jasmine-ajax": "^4.0.0",
+    "jasmine-node": "^3.0.0",
+    "jsdom": "^16.2.0"
+  },
+  "dependencies": {
+    "jasmine": "^3.5.0"
   }
 }
