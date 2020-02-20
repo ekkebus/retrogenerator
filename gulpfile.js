@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 for some Windows environments, change script execution policies first
 Run> Set-ExecutionPolicy Unrestricted (as local adminstrator)
@@ -11,9 +12,9 @@ const clean_css = require('gulp-clean-css');
 const auto_prefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 //required for JS
-//const babel = require('gulp-babel');
 const terser = require('gulp-terser');  //replacement for uglify
 const jsonminify = require('gulp-jsonminify');
+const eslint = require('gulp-eslint');
 
 //const jasmine = require('gulp-jasmine');  //works but is really unstable for me
 var exec = require('gulp-exec');
@@ -21,7 +22,7 @@ var exec = require('gulp-exec');
 //for browser sync
 const browserSync = require('browser-sync').create();
 
-const { series, parallel } = require('gulp');
+const { series } = require('gulp');
 
 const html = () => {
     return gulp.src('./index.html')
@@ -48,8 +49,9 @@ const js = () => {
         .pipe(order(['app.js'], {
             base: "./"
         }))
-        //terser minifies the JS
-        .pipe(terser())
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(terser()) //terser minifies the JS
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest('./dist/'))
         .pipe(browserSync.stream());

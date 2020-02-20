@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** 
  * -------------
  * Retrogenerator SPA app
@@ -6,7 +7,7 @@
 spa = (() => {
     var configMap = {
         startText: 'Loading...',
-        htmlTemplate: (question) => 
+        htmlTemplate: (question) =>
             `<header class="box"></header>
             <section id="question" class="box">${question}</section>
             <footer class="box">Tap on the text for the next question.</footer>`
@@ -24,7 +25,7 @@ spa = (() => {
         let dataLoaded = spa.data.initModule();
         let modelLoaded = spa.model.initModule();
 
-        Promise.all([dataLoaded, modelLoaded]).then(data => {
+        Promise.all([dataLoaded, modelLoaded]).then(() => {
             _showNextQuestion();
             _roundCounter++;
             spa.model.logEvent('OnClick', _roundCounter);
@@ -61,18 +62,16 @@ spa = (() => {
  * -------------
 */
 spa.model = (() => {
-    var configMap = {
+    var stateMap = {
+        $questions: undefined,
+        $currentQuestion: undefined,
+        $currentQuestionStartTime: undefined
     },
-        stateMap = {
-            $questions: undefined,
-            $currentQuestion: undefined,
-            $currentQuestionStartTime: undefined
-        },
         _initModule, _getQuestion, _shuffleArray;
 
     //returns a promise when it is ready
     _initModule = () => {
-        
+
         stateMap.$currentQuestionStartTime = new Date().getTime();
 
         return spa.data.loadData().then(json => {
@@ -137,14 +136,11 @@ spa.data = (() => {
     var configMap = {
         endpoint: './src/questions-nl.json'
     },
-        stateMap = {
-            $container: undefined
-        },
-        initModule;
+        _initModule;
 
     //returns a promise when it is ready
     _initModule = () => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             setTimeout(resolve, 10);
         });
     }

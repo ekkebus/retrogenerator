@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** 
  * -------------
  * Check the test/index.html page itself if all required DOM elements for testing are available
@@ -108,6 +109,7 @@ describe("Check spa.data.loadData request", function () {
                     return onSuccess();
                 })
                 .catch(function (error) {
+                    console.log(error);
                     return onFailure();
                 });
 
@@ -208,7 +210,7 @@ describe("Check spa.model", function () {
 
         beforeEach(function () {
             //spa.data.loadData is called in the spa.model.initModule and returns the JSON
-            spyOn(spa.data, 'loadData').and.callFake(function (req) {
+            spyOn(spa.data, 'loadData').and.callFake(function () {
                 //make a copy of the testJson, otherwise we get some weird behaviour
                 let copyOfTestData = JSON.parse(JSON.stringify(testJson));
                 return Promise.resolve(copyOfTestData);
@@ -254,15 +256,15 @@ describe("Testing the spa app", function () {
 
     beforeEach(function () {
         //add a spies and mock their behaviour
-        spyOn(spa.data, 'initModule').and.callFake(function (req) {
+        spyOn(spa.data, 'initModule').and.callFake(function () {
             return Promise.resolve();   //do nothing
         });
-        spyOn(spa.model, 'initModule').and.callFake(function (req) {
+        spyOn(spa.model, 'initModule').and.callFake(function () {
             return Promise.resolve();   //do nothing
         });
 
         //spa.model.getQuestions is called in the spa app and returns a String
-        spyOn(spa.model, 'getQuestion').and.callFake(function (req) {
+        spyOn(spa.model, 'getQuestion').and.callFake(function () {
             testCounter++;  //testcounter is updated after each test
             return testQuestion + testCounter;
         });
@@ -320,7 +322,7 @@ describe("Test the entire stack (mocking the fetch() called by data layer)", fun
 
     //I don't know how to fix this in a proper way when test are run in a random way
     const waitForTheDomToGetUpdated = () => {
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
             setTimeout(function () {
                 resolve();
             }, 100);
@@ -330,7 +332,7 @@ describe("Test the entire stack (mocking the fetch() called by data layer)", fun
     beforeEach(async function () {
         jasmine.Ajax.install();
 
-        spyOn(window, 'fetch').and.callFake(function (req) {
+        spyOn(window, 'fetch').and.callFake(function () {
             // resolve using our mock data
             return Promise.resolve(testJsonResponse);
         });
