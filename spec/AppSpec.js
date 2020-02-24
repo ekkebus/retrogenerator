@@ -15,9 +15,10 @@ const dom = new JSDOM(
   , { resources: "usable", runScripts: "dangerously" });
 
 //access document via:  dom.window.document;
+global.document = dom.window.document;  //don't skipp this
 
-global.document = dom.window.document;
 //const fetch = require('node-fetch');
+
 //require target under testing
 require('../src/js/app.js')
 

@@ -1,0 +1,50 @@
+#feedback-container{
+    position: fixed;
+    display: flex;
+    width:100%;
+    top: 0px;
+    z-index: 500px;
+  }
+  
+  #feedback-widget{
+    flex: 1;
+    margin: 10px;
+    height: 20px;
+    
+    padding: .75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+  }
+  
+  button#feedback-close-button{
+    float: right;
+    vertical-align: middle;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+  }
+  
+  /*Define feedback states*/
+  .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+  
+  .alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+  
+  .alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+  }
+  
+  .alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }

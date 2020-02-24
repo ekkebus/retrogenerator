@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /*
 for some Windows environments, change script execution policies first
-Run> Set-ExecutionPolicy Unrestricted (as local adminstrator)
+Run powershell> Set-ExecutionPolicy Unrestricted (as local adminstrator)
 */
 const gulp = require('gulp');
 const order = require('gulp-order');
@@ -16,6 +16,7 @@ const concat = require('gulp-concat');
 const terser = require('gulp-terser');  //replacement for uglify
 const jsonminify = require('gulp-jsonminify');
 const eslint = require('gulp-eslint');
+const babel = require('gulp-babel');
 
 //const jasmine = require('gulp-jasmine');  //works but is really unstable for me
 var exec = require('gulp-exec');
@@ -56,6 +57,9 @@ const js = () => {
         .pipe(order(['app.js'], {
             base: "./"
         }))
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(terser()) //terser minifies the JS
@@ -85,6 +89,14 @@ const jasmineTest = () => {
     return gulp.src('./spec/*[Sp]ec.js').
         pipe(exec('jasmine', options))
         .pipe(exec.reporter(reportOptions));
+
+        /*
+        pipe(foreach((stream, file) => {
+            exec('jasmine ' + file.path, options);
+            return;
+          }))
+        .pipe(exec.reporter(reportOptions));
+        */
 }
 
 //export the build task

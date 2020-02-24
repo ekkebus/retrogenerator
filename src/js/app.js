@@ -7,20 +7,22 @@
 spa = (() => {
     var configMap = {
         startText: 'Loading...',
-        htmlTemplate: (question) =>
+        htmlTemplate: (content) =>
             `<header class="box"></header>
-            <section id="question" class="box">${question}</section>
-            <footer class="box">Tap on the text for the next question.</footer>`
+            <section id="question" class="box">${content}</section>
+            <footer class="box">Tap on the text for the next question.</footer>`,
+        questionTemplate:(question) =>
+            `${question}`
     },
         stateMap = {
             $container: undefined
         },
-        _initModule, _updateDom, _showNextQuestion, _roundCounter = 0;
+        _initModule, _insertTemplateToDom, _showNextQuestion, _roundCounter = 0;
 
     _initModule = ($container) => {
         stateMap.$container = document.getElementById($container);
 
-        _updateDom(configMap.startText);
+        _insertTemplateToDom (configMap.questionTemplate(configMap.startText));
 
         let dataLoaded = spa.data.initModule();
         let modelLoaded = spa.model.initModule();
@@ -42,12 +44,13 @@ spa = (() => {
     }
 
     _showNextQuestion = () => {
-        _updateDom(spa.model.getQuestion());
+        stateMap.$container.querySelector('section#question').innerHTML = configMap.questionTemplate(spa.model.getQuestion());
+        
     }
 
-    _updateDom = (content) => {
+    _insertTemplateToDom = (content) => {
         // execute the compiled template and update the DOM
-        stateMap.$container.innerHTML = configMap.htmlTemplate(content);
+        stateMap.$container.innerHTML += configMap.htmlTemplate(content);
     }
 
     //public API
