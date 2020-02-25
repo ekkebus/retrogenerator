@@ -3,7 +3,7 @@
     display: flex;
     width:100%;
     top: 0px;
-    z-index: 500px;
+    z-index: 500;
   }
   
   #feedback-widget{

@@ -137,7 +137,7 @@ spa.model = (() => {
 
 spa.data = (() => {
     var configMap = {
-        endpoint: './src/questions-nl.json'
+        endpoint: './dist/questions-nl.json'
     },
         _initModule;
 

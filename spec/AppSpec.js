@@ -19,8 +19,8 @@ global.document = dom.window.document;  //don't skipp this
 
 //const fetch = require('node-fetch');
 
-//require target under testing
-require('../src/js/app.js')
+//require target under testing (the compiled dist file)
+require('../dist/app.min.js')
 
 //helper function
 //I don't know how to fix this in a proper way when test are run in a random way
