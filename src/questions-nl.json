@@ -7,7 +7,7 @@
         { "id":3, "question":"Welk punt moet als verbeterpunt worden opgepakt in de volgende Sprint?"},
         { "id":4, "question":"Welk verbeterpunt uit de vorige Retrospective is goed opgepakt?"},
         { "id":5, "question":"Welk verbeterpunt uit de vorige Retrospective is niet goed opgepakt?"},
-        { "id":6, "question":"Wat vind je goed aan de retrospectives?"},
+        { "id":6, "question":"Wat vind je goed aan de Retrospectives?"},
         { "id":7, "question":"Wat kan er beter aan de Sprint Retrospectives?"},
         { "id":8, "question":"Welk rapportcijfer krijgt de laatste Sprint Review?"},
         { "id":9, "question":"Wat kan er beter aan de Sprint Reviews?"},
@@ -21,7 +21,7 @@
         { "id":17, "question":"Welke impediments hadden voorkomen kunnen worden?"},
         { "id":18, "question":"Ben je trots op het resultaat van deze Sprint?"},
         { "id":19, "question":"Hebben wij in deze Sprint gewerkt aan wat voor de klant het meeste waarde toevoegt?"},
-        { "id":20, "question":"Wat vind je van de kwaliteit van de  Increment?"},
+        { "id":20, "question":"Wat vind je van de kwaliteit van de Increment?"},
         { "id":21, "question":"Wat hebben wij geleerd in deze Sprint?"},
         { "id":22, "question":"Wat ging goed deze Sprint?"},
         { "id":23, "question":"Is er in deze Sprint alles aan gedaan om de belangrijkste items eerst af te ronden?"},
@@ -44,6 +44,9 @@
         { "id":40, "question":"Hoe kunnen wij de velocity van het team verbeteren?"},
         { "id":41, "question":"Hebben wij als team het maximale gedaan om ons Sprint doel te halen?"},
         { "id":42, "question":"Wat kunnen wij als team verbeteren om onze transparantie te vergroten?"},
-        { "id":43, "question":"Hebben wij als team voldoende mandaat binnen de organisatie?"}
+        { "id":43, "question":"Hebben wij als team voldoende mandaat binnen de organisatie?"},
+        { "id":44, "question":"Welk advies zou jij de Product Owner willen geven?"},
+        { "id":45, "question":"Welk Scrum Event is voor jou het meest waardevol en waarom?"},
+        { "id":46, "question":"Welk Scrum Event is voor jou het minst waardevol en waarom?"}
     ]
 }
