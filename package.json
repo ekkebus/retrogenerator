@@ -36,6 +36,7 @@
     "gulp-jasmine": "^4.0.0",
     "gulp-jsonminify": "^1.1.0",
     "gulp-order": "^1.2.0",
+    "gulp-replace": "^1.0.0",
     "gulp-tap": "^2.0.0",
     "gulp-terser": "^1.2.0",
     "gulp-vulcanize": "^8.0.0",
@@ -46,6 +47,7 @@
     "jsdom": "^16.2.0"
   },
   "dependencies": {
+    "gulp-sass": "^4.0.2",
     "jasmine": "^3.5.0"
   }
 }

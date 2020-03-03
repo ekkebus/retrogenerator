@@ -5,16 +5,18 @@ Run powershell> Set-ExecutionPolicy Unrestricted (as local adminstrator)
 */
 const gulp = require('gulp')
 const order = require('gulp-order')
-const tap = require('gulp-tap')
+const tap = require('gulp-tap')     //used to intercept filenames from gulp.src
+const replace = require('gulp-replace')
 //required for HTML
 const htmlreplace = require('gulp-html-replace')
 const htmlValidator = require('gulp-w3c-html-validator')
 const htmlmin = require('gulp-htmlmin')
 const vulcanize = require('gulp-vulcanize')
-//required for CSS
+//required for CSS / SASS
 const clean_css = require('gulp-clean-css')
 const auto_prefixer = require('gulp-autoprefixer')
 const concat = require('gulp-concat')
+const sass = require('gulp-sass')
 //required for JS
 const terser = require('gulp-terser')  //replacement for uglify
 const jsonminify = require('gulp-jsonminify')
@@ -24,13 +26,20 @@ const eslint = require('gulp-eslint')
 //const jasmine = require('gulp-jasmine');  //works but is really unstable for me
 const exec = require('gulp-exec')
 
+//variable used in gulp functions
+const htmlPath = './**/*.html'
+const cssPath = './src/css/**/*.*css'
+const jsPath = './src/js/**/*.js'
+const jsonPath = './src/*.json'
+const specPath = './spec/*[Sp]ec.js'    //contains the Jasmine tests
+
 //for browser sync
 const browserSync = require('browser-sync').create()
 
 const { series } = require('gulp')
 
 const html = () => {
-    return gulp.src('./app.html')
+    return gulp.src('./app.html')   //only use app.html!
         .pipe(htmlreplace({
             'css': './dist/style.min.css',
             'js': './dist/app.min.js'
@@ -39,11 +48,14 @@ const html = () => {
         .pipe(htmlmin({
             collapseWhitespace: true
         }))
-        .pipe(gulp.dest('./'))
+        .pipe(replace("\r\n", ''))
+        //index.html will be released in the root, so it can be hosted on GitHub
+        .pipe(gulp.dest('./'))  
 }
 
 const css = () => {
-    return gulp.src('./src/**/*.css')
+    return gulp.src(cssPath)
+        .pipe(sass().on('error', sass.logError))
         //make compatible for old browsers
         .pipe(clean_css({ compatibility: 'ie9' }))
         //auto prefixer for some typen browsers
@@ -53,9 +65,10 @@ const css = () => {
         .pipe(browserSync.stream())
 }
 
+
 const js = () => {
-    return gulp.src('./src/js/**/*.js')
-        .pipe(order(['app.js'], {
+    return gulp.src(jsPath)
+        .pipe(order(['app.js','widgetFeedback.js'], {
             base: "./"
         }))
         //babel breaks the build
@@ -71,7 +84,7 @@ const js = () => {
 }
 
 const json = () => {
-    return gulp.src('./src/*.json')
+    return gulp.src(jsonPath)
         .pipe(jsonminify())
         .pipe(gulp.dest('./dist/'))
         .pipe(browserSync.stream())
@@ -95,7 +108,7 @@ const jasmineTest = () => {
         stderr: true,
         stdout: true
     }
-    return gulp.src('./spec/*[Sp]ec.js')
+    return gulp.src(specPath)
         .pipe(tap(function (file) {
             // feeding the file.path returned from gulp.src gives errors
 
@@ -124,7 +137,11 @@ gulp.task('serve', function () {
     browserSync.init({
         server: './dist/'
     })
-    gulp.watch('./src/css/**/*.css', series(css))
-    gulp.watch('./**/*.html', series(html))
+    //watch scss as well
+    gulp.watch(cssPath, series(css))
+    gulp.watch(jsPath, series(js))
+    gulp.watch(jsonPat, series(json))
+    gulp.watch(htmlPath, series(html))
+
     gulp.watch('./index.html').on('change', browserSync.reload)
 });
