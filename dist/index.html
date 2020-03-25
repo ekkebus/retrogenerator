@@ -15,21 +15,11 @@
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- build:css -->
-    <link rel="stylesheet" href="./src/css/app.css">
-    <!-- endbuild -->
+    <link rel="stylesheet" href="style.min.css">
 
-    <!-- build:js -->
-    <script src="./src/js/app.js"></script>
-    <!-- endbuild -->
 
-    <!-- Sentry.io -->
-    <script src="https://browser.sentry-cdn.com/5.15.0/bundle.min.js"
-        integrity="sha384-+ysfQckQvwCB5SppH41IScIz/Iynt2pePnJNMl+D7ZOzDJ+VYhQEuwB0pA60IDM0" crossorigin="anonymous">
-        </script>
-    <script>
-        Sentry.init({ dsn: 'https://6dff66f013c14445b6339e6308e024df@sentry.io/5174473' });
-    </script>
+    <script src="app.min.js"></script>
+
 </head>
 
 <body>
@@ -46,6 +36,7 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
+
         gtag('config', 'UA-121795803-2');
     </script>
 </body>
