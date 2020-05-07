@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,8 @@
   },
   "dependencies": {
     "gulp-sass": "^4.0.2",
-    "jasmine": "^3.5.0"
-  }
+    "jasmine": "^3.5.0",
+    "snyk": "^1.319.1"
+  },
+  "snyk": true
 }
