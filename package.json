@@ -41,7 +41,7 @@
     "gulp-terser": "^1.2.0",
     "gulp-vulcanize": "^8.0.0",
     "gulp-w3c-html-validator": "^2.0.0",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "jasmine-ajax": "^4.0.0",
     "jasmine-node": "^3.0.0",
     "jsdom": "^16.2.1"
