@@ -44,7 +44,7 @@
     "handlebars": "^4.7.3",
     "jasmine-ajax": "^4.0.0",
     "jasmine-node": "^3.0.0",
-    "jsdom": "^16.2.1"
+    "jsdom": "^16.5.0"
   },
   "dependencies": {
     "gulp-sass": "^4.0.2",
